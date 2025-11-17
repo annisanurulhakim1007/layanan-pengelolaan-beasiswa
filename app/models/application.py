@@ -4,7 +4,6 @@ from sqlalchemy import Column, Integer, Numeric, String, Text, DateTime, Enum, F
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from ..database import Base
-from .application_status_enum import ApplicationStatus
 
 class ApplicationStatus(str, enum.Enum):
     PENDING = "PENDING"

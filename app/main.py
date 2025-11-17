@@ -26,7 +26,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="API Layanan Pengelolaan Beasiswa Internal Kampus",
     version="1.0.0",
-    description=("Layanan API berbasis FastAPI untuk pengelolaan beasiswa internal."),
+    description="Layanan API berbasis FastAPI untuk pengelolaan beasiswa internal.",
 )
 
 

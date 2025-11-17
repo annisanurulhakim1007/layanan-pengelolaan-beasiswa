@@ -1,5 +1,9 @@
-# Ignore virtual environments
+# Abaikan virtual environment
 venv/
-env
-.venv/
+ENV/
+env/
+
+# Abaikan file environment
 .env
+.env.local
+.env.* 

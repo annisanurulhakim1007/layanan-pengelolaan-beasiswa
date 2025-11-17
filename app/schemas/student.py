@@ -2,7 +2,6 @@
 from pydantic import BaseModel
 from typing import Optional
 
-
 class StudentBase(BaseModel):
     nim: str
     name: str
@@ -11,12 +10,10 @@ class StudentBase(BaseModel):
     email: Optional[str] = None
     phone: Optional[str] = None
 
-
 class StudentCreate(StudentBase):
-    pass  # kalau nanti mau ada field khusus, bisa ditambah
+    pass
 
-
-class StudentResponse(StudentBase):
+class StudentRead(StudentBase):
     id: int
 
     class Config:

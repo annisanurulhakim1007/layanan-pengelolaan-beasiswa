@@ -1,40 +1,39 @@
 # app/schemas/scholarship.py
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from decimal import Decimal
 
-
-class ScholarshipTypeResponse(BaseModel):
+class ScholarshipTypeRead(BaseModel):
     id: int
     code: str
     name: str
-    description: Optional[str] = None
+    description: Optional[str]
     is_active: bool
 
     class Config:
         orm_mode = True
 
 
-class ScholarshipPeriodResponse(BaseModel):
+class ScholarshipPeriodRead(BaseModel):
     id: int
     year: int
     term_name: str
-    start_date: date
-    end_date: date
+    start_date: str   # bisa juga date
+    end_date: str
     is_active: bool
 
     class Config:
         orm_mode = True
 
 
-class ScholarshipRequirementResponse(BaseModel):
+class ScholarshipRequirementRead(BaseModel):
     id: int
     scholarship_type_id: int
-    scholarship_period_id: Optional[int] = None
-    min_gpa: Optional[str] = None
-    min_semester: Optional[int] = None
-    required_documents: Optional[str] = None
-    other_conditions: Optional[str] = None
+    scholarship_period_id: Optional[int]
+    min_gpa: Optional[Decimal]
+    min_semester: Optional[int]
+    required_documents: Optional[str]
+    other_conditions: Optional[str]
 
     class Config:
         orm_mode = True

@@ -24,9 +24,25 @@ from .routers import (
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
     title="API Layanan Pengelolaan Beasiswa Internal Kampus",
     version="1.0.0",
-    description="Layanan API berbasis FastAPI untuk pengelolaan beasiswa internal.",
+    description="""
+        API untuk pengelolaan:
+        - Pengajuan beasiswa (applications)
+        - Pengajuan milik mahasiswa (student-applications)
+        - Dokumen pendukung (documents)
+        - Status pengajuan (application-status)
+        - Riwayat perubahan status (status-history)
+
+        Dokumentasi otomatis menggunakan OpenAPI + Swagger UI.
+        """,
+    contact={
+        "name": "Annisa Nurul Hakim",
+        "email": "2211521007@student.unand.ac.id",
+    },
 )
 
 

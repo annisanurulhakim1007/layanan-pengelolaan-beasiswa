@@ -1,9 +1,13 @@
-# Abaikan virtual environment
+# Virtual environment
 venv/
 ENV/
 env/
 
-# Abaikan file environment
+# Environment files
 .env
 .env.local
-.env.* 
+.env.*
+
+# Python cache
+__pycache__/
+*.pyc

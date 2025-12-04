@@ -1,15 +1,17 @@
-# app/routers/notifications.py
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.database import get_db
+from app.models.notification import Notification
 
-router = APIRouter(
-    prefix="/notifications",
-    tags=["Notifications"]
-)
+router = APIRouter(prefix="/notifications", tags=["Notifications"])
 
-@router.get("/ping")
-def ping_notifications():
-    return {"resource": "notifications", "status": "ok"}
+@router.get("/{student_id}")
+def get_notifications(student_id: int, db: Session = Depends(get_db)):
+    notifications = db.query(Notification).filter(
+        Notification.student_id == student_id
+    ).order_by(Notification.created_at.desc()).all()
 
-# nanti:
-# GET /notifications/{student_id} -> daftar notifikasi untuk 1 mahasiswa
-# atau GET /me/notifications
+    return {
+        "count": len(notifications),
+        "items": notifications
+    }

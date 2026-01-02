@@ -15,3 +15,4 @@ from .decisions import router as decisions_router
 from .announcements import router as announcements_router
 from .notifications import router as notifications_router
 from .dashboard import router as dashboard_router
+from .tmdb import router as tmdb_router

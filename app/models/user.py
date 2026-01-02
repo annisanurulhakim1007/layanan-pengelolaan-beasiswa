@@ -1,6 +1,7 @@
 # app/models/user.py
-from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import relationship
 from ..database import Base
 
 class User(Base):
@@ -9,5 +10,5 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(50), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
-    role = Column(String(20), nullable=False, default="ADMIN")  # ADMIN / MAHASISWA
+    role = Column(String(20), nullable=False, default="MAHASISWA")  # default aman
     created_at = Column(DateTime, default=datetime.utcnow)

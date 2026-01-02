@@ -1,6 +1,11 @@
-# app/schemas/notification.py
 from pydantic import BaseModel
 from typing import Optional
+
+class NotificationCreate(BaseModel):
+    student_id: int
+    application_id: Optional[int] = None
+    title: str
+    message: str
 
 class NotificationRead(BaseModel):
     id: int
@@ -9,7 +14,6 @@ class NotificationRead(BaseModel):
     title: str
     message: str
     is_read: bool
-    created_at: str
 
     class Config:
         orm_mode = True

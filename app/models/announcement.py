@@ -13,3 +13,5 @@ class Announcement(Base):
     scholarship_period_id = Column(Integer, ForeignKey("scholarship_periods.id"), nullable=True)
     published_at = Column(DateTime, default=datetime.utcnow)
     is_published = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)

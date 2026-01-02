@@ -1,14 +1,23 @@
-# app/routers/review_queue.py
-from fastapi import APIRouter
+from typing import List, Optional
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-router = APIRouter(
-    prefix="/review-queue",
-    tags=["Review Queue (Admin)"]
-)
+from ..database import get_db
+from ..models.application import Application
+from ..schemas.application import ApplicationRead, ApplicationStatus
 
-@router.get("/ping")
-def ping_review_queue():
-    return {"resource": "review-queue", "status": "ok"}
+router = APIRouter(prefix="/review-queue", tags=["Review Queue"])
 
-# nanti:
-# GET /review-queue?status=PENDING -> list pengajuan yang perlu diverifikasi admin
+@router.get("/", response_model=List[ApplicationRead])
+def get_review_queue(
+    status: Optional[ApplicationStatus] = ApplicationStatus.PENDING,
+    db: Session = Depends(get_db)
+):
+    """
+    Antrian pengajuan untuk diverifikasi (default: PENDING).
+    Ini bukan tabel baru, hanya query dari applications.
+    """
+    q = db.query(Application)
+    if status:
+        q = q.filter(Application.current_status == status.value)
+    return q.order_by(Application.created_at.asc()).all()

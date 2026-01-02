@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
+    TMDB_BASE_URL: str = "https://api.themoviedb.org/3"
+    TMDB_BEARER_TOKEN: str
+
     # pengganti class Config di Pydantic v1
     model_config = SettingsConfigDict(
         env_file=".env",

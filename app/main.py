@@ -1,7 +1,8 @@
 # app/main.py
 from fastapi import FastAPI
 from .database import Base, engine
-from .models import *  # supaya semua model terdaftar di Base
+from .models import *  # register semua model ke Base
+
 from .routers import (
     auth_router,
     me_router,
@@ -18,10 +19,8 @@ from .routers import (
     announcements_router,
     notifications_router,
     dashboard_router,
+    tmdb_router,  # pastikan ini diexport dari app/routers/__init__.py
 )
-
-# Create all tables
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     docs_url="/docs",
@@ -30,21 +29,13 @@ app = FastAPI(
     title="API Layanan Pengelolaan Beasiswa Internal Kampus",
     version="1.0.0",
     description="""
-        API untuk pengelolaan:
-        - Pengajuan beasiswa (applications)
-        - Pengajuan milik mahasiswa (student-applications)
-        - Dokumen pendukung (documents)
-        - Status pengajuan (application-status)
-        - Riwayat perubahan status (status-history)
-
-        Dokumentasi otomatis menggunakan OpenAPI + Swagger UI.
-        """,
+API untuk pengelolaan beasiswa internal kampus + fitur UAS (konsumsi TMDB API).
+""",
     contact={
         "name": "Annisa Nurul Hakim",
         "email": "2211521007@student.unand.ac.id",
     },
 )
-
 
 @app.get("/", tags=["Health Check"])
 def read_root():
@@ -68,11 +59,12 @@ def read_root():
             "/announcements",
             "/notifications",
             "/dashboard-metrics",
+            "/uas/tmdb",  
         ],
     }
 
-
-# Registrasi semua router (15 resource)
+# Include routers
+# Registrasi semua router
 app.include_router(auth_router)
 app.include_router(me_router)
 app.include_router(scholarship_types_router)
@@ -88,3 +80,4 @@ app.include_router(decisions_router)
 app.include_router(announcements_router)
 app.include_router(notifications_router)
 app.include_router(dashboard_router)
+app.include_router(tmdb_router)
